@@ -72,13 +72,13 @@ for i = -10:(20/(iter-1)):10
 end
 
 figure(1)
-subplot(1,2,1);
+subplot(2,1,1);
 plot(Vin, V3);
 title('DC sweep of Vin vs. V3');
 xlabel('Vin (V)');
 ylabel('V3 (V)');
 
-subplot(1,2,2)
+subplot(2,1,2)
 plot(Vin, V5);
 title('DC sweep of Vin vs. Vout');
 xlabel('Vin (V)');
@@ -105,8 +105,15 @@ title('omega vs. Vout');
 xlabel('omega (/s)');
 ylabel('Vout (V)');
 
+% The gain in dB also needs to be plotted with respect to the angular
+% frequency
 subplot(2,1,2);
 semilogx(omega, gain);
 title('Gain Vo/V1');
 xlabel('omega (/s)');
-ylabel('gai
+ylabel('gain (dB)');
+
+%%
+% a normally distributed random perturbation is applied to the capacitor
+Vo = zeros(length(omega),1);
+gain = zeros(length(omega),1);

@@ -113,3 +113,25 @@ title('Gain Vo/V1');
 xlabel('omega (/s)');
 ylabel('gain (dB)');
 
+%%
+% a normally distributed random perturbation is applied to the capacitor
+Vo = zeros(length(omega),1);
+gain = zeros(length(omega),1);
+for i = 1:length(gain)
+    pert = randn()*0.05;
+    C(1,1) = c*pert;
+    C(2,1) = -c*pert;
+    C(1,2) = -c*pert;
+    C(2,2) = c*pert;
+    
+    S = 1i*2*pi;
+    V = inv((G + S.*C))*F;
+    Vo(i) = abs(V(5));
+    gain(i) = 20*log10(abs(Vo(i))/abs(V(1)));
+end
+
+figure(3)
+histogram(gain,75);
+title('Histogram of gain with 0.05 perturbation on C');
+ylabel('count');
+xlabel('Gain (dB)');
